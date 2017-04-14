@@ -10,16 +10,25 @@ import UIKit
 
 class WeatherVC: UIViewController {
 
-    @IBOutlet weak var dataLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var weatherImage: UIImageView!
     @IBOutlet weak var weatherTypeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    var currentWeather = Weather()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        currentWeather.downloadWeatherDetails {
+            
+        }
+    }
+    
+    func updateUI() {
+        dateLabel.text = currentWeather.date
+        temperatureLabel.text = currentWeather.temp.description
     }
 
 }
