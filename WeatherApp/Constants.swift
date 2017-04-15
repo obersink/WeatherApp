@@ -15,4 +15,4 @@ let APP_ID = "&appid="
 
 typealias DownloadComplete = () -> ()
 
-let WEATHER_URL = "\(BASE_URL)\(LATITUDE)-3.3\(LONGITUDE)-3.3\(APP_ID)\(API_KEY)"
+let WEATHER_URL = "\(BASE_URL)\(LATITUDE)35\(LONGITUDE)139\(APP_ID)\(API_KEY)"

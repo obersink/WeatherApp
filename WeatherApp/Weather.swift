@@ -48,19 +48,23 @@ class Weather {
         return _temp
     }
     //@escaping DownloadComplete
-    func downloadWeatherDetails(completed: DownloadComplete) {
+    func downloadWeatherDetails(completed: @escaping DownloadComplete) {
         let currentWeatherURL = URL(string: WEATHER_URL)!
-        Alamofire.request(currentWeatherURL).responseJSON{ response in
+        
+        Alamofire.request(currentWeatherURL).responseJSON { response in
             let result = response.result
+            
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 
                 if let name = dict["name"] as? String {
                     self._cityName = name
+                    print("cityname: \(self.cityName)")
                 }
                 
                 if let weather = dict["weather"] as? [Dictionary<String, AnyObject>] {
                     if let main = weather[0]["main"] as? String {
                         self._weatherType = main.capitalized
+                        print("weatherType: \(self.weatherType)")
                     }
                 }
                 
@@ -68,14 +72,15 @@ class Weather {
                     if let kelvin = main["temp"] as? Double {
                         let farenheit = round((kelvin * (9/5) - 459.69))
                         self._temp = farenheit
-                        print(farenheit)
+                        print("temp: \(self.temp)")
                     }
                 }
                 
+                DispatchQueue.main.async {
+                    completed()
+                }
+                
             }
-            
         }
-        completed()
     }
-    
 }
