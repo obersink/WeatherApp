@@ -18,7 +18,6 @@ class WeatherVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var currentWeather: Weather!
-    var forecast: Forecast!
     var forecasts = [Forecast]()
     
     override func viewDidLoad() {
@@ -26,11 +25,16 @@ class WeatherVC: UIViewController {
         
         currentWeather = Weather()
         
-        
         currentWeather.downloadWeatherDetails {
             self.updateUI()
         }
-        Forecast.downloadForecast{}
+        //TODO, set up weathercell for table view
+        Forecast.downloadForecast {
+            self.forecasts = Forecast.forecast
+            for i in self.forecasts {
+                print(i)
+            }
+        }
         
     }
     
@@ -40,7 +44,6 @@ class WeatherVC: UIViewController {
         cityLabel.text = currentWeather.cityName
         weatherImage.image = UIImage(named: currentWeather.weatherType)
         weatherTypeLabel.text = currentWeather.weatherType
-        print(currentWeather.temp)
         print(currentWeather.weatherType)
     }
 

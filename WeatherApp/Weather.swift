@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 
 class Weather {
+    
     var _cityName: String!
     var _date: String!
     var _weatherType: String!
@@ -55,30 +56,25 @@ class Weather {
             let result = response.result
             
             if let dict = result.value as? Dictionary<String, AnyObject> {
-                
                 if let name = dict["name"] as? String {
                     self._cityName = name
-                    print("cityname: \(self.cityName)")
                 }
                 
                 if let weather = dict["weather"] as? [Dictionary<String, AnyObject>] {
                     if let main = weather[0]["main"] as? String {
                         self._weatherType = main.capitalized
-                        print("weatherType: \(self.weatherType)")
                     }
                 }
                 
                 if let main = dict["main"] as? Dictionary<String, AnyObject> {
                     if let temp = main["temp"] as? Double {
                         self._temp = round(temp * 10)/10
-                        print("temp: \(self.temp)")
                     }
                 }
                 
                 DispatchQueue.main.async {
                     completed()
                 }
-                
             }
         }
     }
