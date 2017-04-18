@@ -16,6 +16,7 @@
 		8CDE02081E9F35DE00F951A3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDE02071E9F35DE00F951A3 /* Constants.swift */; };
 		8CDE020C1E9F3DD000F951A3 /* .API_KEY.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDE020B1E9F3DD000F951A3 /* .API_KEY.swift */; };
 		8CDE020E1E9F3F6B00F951A3 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDE020D1E9F3F6B00F951A3 /* Weather.swift */; };
+		8CDE022E1EA5A02600F951A3 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDE022D1EA5A02600F951A3 /* Forecast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		8CDE02071E9F35DE00F951A3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8CDE020B1E9F3DD000F951A3 /* .API_KEY.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = .API_KEY.swift; sourceTree = "<group>"; };
 		8CDE020D1E9F3F6B00F951A3 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		8CDE022D1EA5A02600F951A3 /* Forecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		CF73927EACD500927003F23C /* Pods-WeatherApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WeatherApp/Pods-WeatherApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				8CDE020D1E9F3F6B00F951A3 /* Weather.swift */,
+				8CDE022D1EA5A02600F951A3 /* Forecast.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				8CDE020C1E9F3DD000F951A3 /* .API_KEY.swift in Sources */,
 				8CB39C131E99E7A1002559C6 /* AppDelegate.swift in Sources */,
 				8CDE02081E9F35DE00F951A3 /* Constants.swift in Sources */,
+				8CDE022E1EA5A02600F951A3 /* Forecast.swift in Sources */,
 				8CDE020E1E9F3F6B00F951A3 /* Weather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

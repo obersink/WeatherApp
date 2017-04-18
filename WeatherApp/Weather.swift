@@ -47,7 +47,7 @@ class Weather {
         }
         return _temp
     }
-    //@escaping DownloadComplete
+    
     func downloadWeatherDetails(completed: @escaping DownloadComplete) {
         let currentWeatherURL = URL(string: WEATHER_URL)!
         
@@ -69,9 +69,8 @@ class Weather {
                 }
                 
                 if let main = dict["main"] as? Dictionary<String, AnyObject> {
-                    if let kelvin = main["temp"] as? Double {
-                        let farenheit = round((kelvin * (9/5) - 459.69))
-                        self._temp = farenheit
+                    if let temp = main["temp"] as? Double {
+                        self._temp = round(temp * 10)/10
                         print("temp: \(self.temp)")
                     }
                 }
