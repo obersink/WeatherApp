@@ -28,12 +28,14 @@ class WeatherVC: UIViewController {
         currentWeather.downloadWeatherDetails {
             self.updateUI()
         }
-        //TODO, set up weathercell for table view
+        
         Forecast.downloadForecast {
             self.forecasts = Forecast.forecast
-            for i in self.forecasts {
-                print(i)
-            }
+//            for i in self.forecasts {
+//                
+//            }
+            self.tableView.reloadData()
+            print("download")
         }
         
     }
@@ -44,7 +46,6 @@ class WeatherVC: UIViewController {
         cityLabel.text = currentWeather.cityName
         weatherImage.image = UIImage(named: currentWeather.weatherType)
         weatherTypeLabel.text = currentWeather.weatherType
-        print(currentWeather.weatherType)
     }
 
 }
@@ -52,12 +53,20 @@ class WeatherVC: UIViewController {
 extension WeatherVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        print("\(forecasts.count)")
+        return forecasts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath)
-        return cell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath) as? WeatherCell {
+            let forecast = forecasts[indexPath.row]
+            cell.configureCell(forecast: forecast)
+            print("configured cell")
+            return cell
+        }
+        else {
+            return WeatherCell()
+        }
     }
     
 }

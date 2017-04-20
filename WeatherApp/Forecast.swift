@@ -49,11 +49,11 @@ class Forecast {
     init(weatherDict: Dictionary<String, AnyObject>) {
         if let temp = weatherDict["main"] as? Dictionary<String, AnyObject> {
             if let min = temp["temp_min"] as? Double {
-                self._lowTemp = "\(min)"
+                self._lowTemp = "High: \(round(min * 10)/10)"
             }
             
             if let max = temp["temp_max"] as? Double {
-                self._highTemp = "\(max)"
+                self._highTemp = "Low: \(round(max * 10)/10)"
             }
         }
         
@@ -94,7 +94,11 @@ class Forecast {
                 }
             }
             forecast = list
-            completed()
+            
+            DispatchQueue.main.async {
+                completed()
+            }
+
         }
     }
 }
