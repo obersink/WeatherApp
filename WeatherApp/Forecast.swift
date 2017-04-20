@@ -78,9 +78,9 @@ class Forecast {
     }
     
     class func downloadForecast(completed: @escaping DownloadComplete) {
-        let forecastURL = URL(string: FORECAST_URL)!
+        FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast?lat=\(Location.sharedInstance.latitude!)&lon=\(Location.sharedInstance.longitude!)&units=imperial&appid=\(API_KEY)"
         
-        Alamofire.request(forecastURL).responseJSON { response in
+        Alamofire.request(FORECAST_URL).responseJSON { response in
             let result = response.result
             var list = [Forecast]()
             

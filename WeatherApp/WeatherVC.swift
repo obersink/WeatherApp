@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherVC: UIViewController {
 
@@ -17,29 +18,37 @@ class WeatherVC: UIViewController {
     @IBOutlet weak var weatherTypeLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation!
+    
     var currentWeather: Weather!
     var forecasts = [Forecast]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //location manager
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startMonitoringSignificantLocationChanges()
+        
+        
         currentWeather = Weather()
-        
-        currentWeather.downloadWeatherDetails {
-            self.updateUI()
-        }
-        
-        Forecast.downloadForecast {
-            self.forecasts = Forecast.forecast
-//            for i in self.forecasts {
-//                
-//            }
-            self.tableView.reloadData()
-            print("download")
-        }
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        locationAuthStatus()
+        
+        currentWeather.downloadWeatherDetails {
+            self.updateUI()
+            
+        }
+    }
+    
+    //sets top view
     func updateUI() {
         dateLabel.text = currentWeather.date
         temperatureLabel.text = "\(currentWeather.temp)°"
@@ -61,13 +70,35 @@ extension WeatherVC: UITableViewDelegate, UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath) as? WeatherCell {
             let forecast = forecasts[indexPath.row]
             cell.configureCell(forecast: forecast)
-            print("configured cell")
             return cell
         }
         else {
             return WeatherCell()
         }
     }
-    
 }
 
+extension WeatherVC: CLLocationManagerDelegate {
+    
+    func locationAuthStatus() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            currentLocation = locationManager.location
+            Location.sharedInstance.latitude = currentLocation.coordinate.latitude
+            Location.sharedInstance.longitude = currentLocation.coordinate.longitude
+            print("coordinates: \(currentLocation.coordinate)")
+            
+            currentWeather.downloadWeatherDetails {
+                self.updateUI()
+            }
+            
+            Forecast.downloadForecast {
+                self.forecasts = Forecast.forecast
+                self.tableView.reloadData()
+            }
+        }
+        else {
+            locationManager.requestWhenInUseAuthorization()
+            locationAuthStatus()
+        }
+    }
+}

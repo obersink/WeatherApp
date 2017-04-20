@@ -50,9 +50,10 @@ class Weather {
     }
     
     func downloadWeatherDetails(completed: @escaping DownloadComplete) {
-        let currentWeatherURL = URL(string: WEATHER_URL)!
         
-        Alamofire.request(currentWeatherURL).responseJSON { response in
+        WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?lat=\(Location.sharedInstance.latitude!)&lon=\(Location.sharedInstance.longitude!)&units=imperial&appid=\(API_KEY)"
+        
+        Alamofire.request(WEATHER_URL).responseJSON { response in
             let result = response.result
             
             if let dict = result.value as? Dictionary<String, AnyObject> {
